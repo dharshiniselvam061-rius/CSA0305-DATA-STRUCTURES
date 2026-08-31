@@ -1,0 +1,171 @@
+/* 10. Write a C program to implement Linked list operations */
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+struct Node *head = NULL;
+
+void insertAtBeginning(int value) {
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = head;
+    head = newNode;
+    printf("Inserted %d at beginning.\n", value);
+}
+
+void insertAtEnd(int value) {
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        head = newNode;
+        printf("Inserted %d at end.\n", value);
+        return;
+    }
+
+    struct Node *temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = newNode;
+    printf("Inserted %d at end.\n", value);
+}
+
+void deleteValue(int value) {
+    struct Node *temp = head, *prev = NULL;
+
+    if (temp != NULL && temp->data == value) {
+        head = temp->next;
+        free(temp);
+        printf("Deleted %d from list.\n", value);
+        return;
+    }
+
+    while (temp != NULL && temp->data != value) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Value %d not found.\n", value);
+        return;
+    }
+
+    prev->next = temp->next;
+    free(temp);
+    printf("Deleted %d from list.\n", value);
+}
+
+void display() {
+    if (head == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    struct Node *temp = head;
+    printf("Linked List: ");
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    int choice, value;
+
+    do {
+        printf("\n--- Linked List Operations ---\n");
+        printf("1. Insert at beginning\n2. Insert at end\n3. Delete a value\n4. Display\n5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                insertAtBeginning(value);
+                break;
+            case 2:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                insertAtEnd(value);
+                break;
+            case 3:
+                printf("Enter value to delete: ");
+                scanf("%d", &value);
+                deleteValue(value);
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice.\n");
+        }
+    } while (choice != 5);
+
+    return 0;
+}
+--- Linked List Operations ---
+1. Insert at beginning
+2. Insert at end
+3. Delete a value
+4. Display
+5. Exit
+Enter your choice: Enter value: Inserted 10 at end.
+
+--- Linked List Operations ---
+1. Insert at beginning
+2. Insert at end
+3. Delete a value
+4. Display
+5. Exit
+Enter your choice: Enter value: Inserted 20 at end.
+
+--- Linked List Operations ---
+1. Insert at beginning
+2. Insert at end
+3. Delete a value
+4. Display
+5. Exit
+Enter your choice: Enter value: Inserted 5 at beginning.
+
+--- Linked List Operations ---
+1. Insert at beginning
+2. Insert at end
+3. Delete a value
+4. Display
+5. Exit
+Enter your choice: Linked List: 5 -> 10 -> 20 -> NULL
+
+--- Linked List Operations ---
+1. Insert at beginning
+2. Insert at end
+3. Delete a value
+4. Display
+5. Exit
+Enter your choice: Enter value to delete: Deleted 20 from list.
+
+--- Linked List Operations ---
+1. Insert at beginning
+2. Insert at end
+3. Delete a value
+4. Display
+5. Exit
+Enter your choice: Linked List: 5 -> 10 -> NULL
+
+--- Linked List Operations ---
+1. Insert at beginning
+2. Insert at end
+3. Delete a value
+4. Display
+5. Exit
+Enter your choice: Exiting...
