@@ -1,0 +1,29 @@
+/* 4. Write a C program to find Fibonacci series without using Recursion */
+#include <stdio.h>
+
+int main() {
+    int n;
+
+    printf("Enter number of terms: ");
+    scanf("%d", &n);
+
+    if (n <= 0) {
+        printf("Number of terms must be positive.\n");
+        return 0;
+    }
+
+    long long a = 0, b = 1, next;
+
+    printf("Fibonacci Series:\n");
+    for (int i = 1; i <= n; i++) {
+        printf("%lld ", a);
+        next = a + b;
+        a = b;
+        b = next;
+    }
+    printf("\n");
+
+    return 0;
+}
+Enter number of terms: Fibonacci Series:
+0 1 1 2 3 5 8 13 21 34
