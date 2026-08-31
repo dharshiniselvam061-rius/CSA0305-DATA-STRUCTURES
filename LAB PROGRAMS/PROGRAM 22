@@ -1,0 +1,52 @@
+/* 22. Write a C program to Graph traversal using Depth First Search */
+#include <stdio.h>
+
+#define MAX 100
+
+int adj[MAX][MAX];
+int visited[MAX];
+int n; /* number of vertices */
+
+void dfs(int vertex) {
+    visited[vertex] = 1;
+    printf("%d ", vertex);
+
+    for (int i = 0; i < n; i++) {
+        if (adj[vertex][i] == 1 && !visited[i])
+            dfs(i);
+    }
+}
+
+int main() {
+    int edges, u, v, start;
+
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        visited[i] = 0;
+        for (int j = 0; j < n; j++)
+            adj[i][j] = 0;
+    }
+
+    printf("Enter number of edges: ");
+    scanf("%d", &edges);
+
+    printf("Enter edges (u v) with vertices numbered 0 to %d:\n", n - 1);
+    for (int i = 0; i < edges; i++) {
+        scanf("%d %d", &u, &v);
+        adj[u][v] = 1;
+        adj[v][u] = 1; /* undirected graph */
+    }
+
+    printf("Enter starting vertex for DFS: ");
+    scanf("%d", &start);
+
+    printf("DFS Traversal starting from vertex %d: ", start);
+    dfs(start);
+    printf("\n");
+
+    return 0;
+}
+Enter number of vertices: Enter number of edges: Enter edges (u v) with vertices numbered 0 to 5:
+Enter starting vertex for DFS: DFS Traversal starting from vertex 0: 0 1 3 5 2 4
