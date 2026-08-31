@@ -1,0 +1,32 @@
+/* 2. Write a C program to find Odd or Even number from a given set of numbers */
+#include <stdio.h>
+
+int main() {
+    int n;
+
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter %d numbers:\n", n);
+    for (int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+
+    printf("\nNumber\tType\n");
+    for (int i = 0; i < n; i++) {
+        if (arr[i] % 2 == 0)
+            printf("%d\tEven\n", arr[i]);
+        else
+            printf("%d\tOdd\n", arr[i]);
+    }
+
+    return 0;
+}
+Enter the number of elements: Enter 5 numbers:
+
+Number	Type
+10	Even
+15	Odd
+22	Even
+7	Odd
+8	Even
