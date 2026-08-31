@@ -1,0 +1,111 @@
+/* 15. Write a C program to implement hashing using Linear Probing method */
+#include <stdio.h>
+
+#define TABLE_SIZE 10
+
+int hashTable[TABLE_SIZE];
+int isOccupied[TABLE_SIZE] = {0};
+
+int hashFunction(int key) {
+    return key % TABLE_SIZE;
+}
+
+void insert(int key) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+    int probes = 0;
+
+    while (isOccupied[index] && probes < TABLE_SIZE) {
+        index = (index + 1) % TABLE_SIZE;
+        probes++;
+    }
+
+    if (probes == TABLE_SIZE) {
+        printf("Hash table is full. Cannot insert %d.\n", key);
+        return;
+    }
+
+    hashTable[index] = key;
+    isOccupied[index] = 1;
+
+    if (index == originalIndex)
+        printf("Key %d inserted at index %d.\n", key, index);
+    else
+        printf("Key %d inserted at index %d (collision resolved by linear probing).\n", key, index);
+}
+
+int search(int key) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+    int probes = 0;
+
+    while (probes < TABLE_SIZE) {
+        if (isOccupied[index] && hashTable[index] == key)
+            return index;
+        index = (index + 1) % TABLE_SIZE;
+        probes++;
+        if (index == originalIndex)
+            break;
+    }
+    return -1;
+}
+
+void display() {
+    printf("\nHash Table:\n");
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        if (isOccupied[i])
+            printf("Index %d: %d\n", i, hashTable[i]);
+        else
+            printf("Index %d: --\n", i);
+    }
+}
+
+int main() {
+    int n, key, choice;
+
+    printf("Enter number of keys to insert: ");
+    scanf("%d", &n);
+
+    printf("Enter %d keys:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &key);
+        insert(key);
+    }
+
+    display();
+
+    printf("\nDo you want to search a key? (1-Yes / 0-No): ");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        printf("Enter key to search: ");
+        scanf("%d", &key);
+        int pos = search(key);
+        if (pos != -1)
+            printf("Key %d found at index %d.\n", key, pos);
+        else
+            printf("Key %d not found.\n", key);
+    }
+
+    return 0;
+}
+Enter number of keys to insert: Enter 5 keys:
+Key 12 inserted at index 2.
+Key 22 inserted at index 3 (collision resolved by linear probing).
+Key 32 inserted at index 4 (collision resolved by linear probing).
+Key 7 inserted at index 7.
+Key 17 inserted at index 8 (collision resolved by linear probing).
+
+Hash Table:
+Index 0: --
+Index 1: --
+Index 2: 12
+Index 3: 22
+Index 4: 32
+Index 5: --
+Index 6: --
+Index 7: 7
+Index 8: 17
+Index 9: --
+
+Do you want to search a key? (1-Yes / 0-No): Enter key to search: Key 22 found at index 3.
