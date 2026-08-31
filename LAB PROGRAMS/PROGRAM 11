@@ -1,0 +1,141 @@
+/* 11. Write a C program to implement Stack operations such as PUSH, POP and PEEK */
+#include <stdio.h>
+
+#define MAX 100
+
+int stack[MAX];
+int top = -1;
+
+void push(int value) {
+    if (top == MAX - 1) {
+        printf("Stack Overflow.\n");
+        return;
+    }
+    stack[++top] = value;
+    printf("%d pushed onto stack.\n", value);
+}
+
+void pop() {
+    if (top == -1) {
+        printf("Stack Underflow.\n");
+        return;
+    }
+    printf("%d popped from stack.\n", stack[top--]);
+}
+
+void peek() {
+    if (top == -1) {
+        printf("Stack is empty.\n");
+        return;
+    }
+    printf("Top element: %d\n", stack[top]);
+}
+
+void display() {
+    if (top == -1) {
+        printf("Stack is empty.\n");
+        return;
+    }
+    printf("Stack elements (top to bottom): ");
+    for (int i = top; i >= 0; i--)
+        printf("%d ", stack[i]);
+    printf("\n");
+}
+
+int main() {
+    int choice, value;
+
+    do {
+        printf("\n--- Stack Operations ---\n");
+        printf("1. PUSH\n2. POP\n3. PEEK\n4. Display\n5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value to push: ");
+                scanf("%d", &value);
+                push(value);
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                peek();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice.\n");
+        }
+    } while (choice != 5);
+
+    return 0;
+}
+--- Stack Operations ---
+1. PUSH
+2. POP
+3. PEEK
+4. Display
+5. Exit
+Enter your choice: Enter value to push: 10 pushed onto stack.
+
+--- Stack Operations ---
+1. PUSH
+2. POP
+3. PEEK
+4. Display
+5. Exit
+Enter your choice: Enter value to push: 20 pushed onto stack.
+
+--- Stack Operations ---
+1. PUSH
+2. POP
+3. PEEK
+4. Display
+5. Exit
+Enter your choice: Enter value to push: 30 pushed onto stack.
+
+--- Stack Operations ---
+1. PUSH
+2. POP
+3. PEEK
+4. Display
+5. Exit
+Enter your choice: Top element: 30
+
+--- Stack Operations ---
+1. PUSH
+2. POP
+3. PEEK
+4. Display
+5. Exit
+Enter your choice: Stack elements (top to bottom): 30 20 10 
+
+--- Stack Operations ---
+1. PUSH
+2. POP
+3. PEEK
+4. Display
+5. Exit
+Enter your choice: 30 popped from stack.
+
+--- Stack Operations ---
+1. PUSH
+2. POP
+3. PEEK
+4. Display
+5. Exit
+Enter your choice: Stack elements (top to bottom): 20 10 
+
+--- Stack Operations ---
+1. PUSH
+2. POP
+3. PEEK
+4. Display
+5. Exit
+Enter your choice: Exiting...
